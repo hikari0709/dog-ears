@@ -1,5 +1,8 @@
-import Image from 'next/image';
 import List from '@/components/elements/list';
+
+import { useEffect } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 export default function Home() {
   return (
