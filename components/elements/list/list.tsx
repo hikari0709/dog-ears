@@ -1,21 +1,38 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ListItem from './listItem';
 
-type Props = {
-  headingText?: string;
-  listItems: Array<string>;
+type Magazine = {
+  name: string;
+  numberOfTurns: number;
 };
 
-const List = ({ headingText, listItems }: Props) => {
+const List = () => {
+  const [magazines, setMagazines] = useState<Magazine[]>([]);
+
+  useEffect(() => {
+    const fetchMagazines = async () => {
+      try {
+        const response = await fetch('/data/magazines.json');
+        const data = await response.json();
+        setMagazines(data);
+      } catch (error) {
+        console.error('JSONデータの読み込みエラー', error);
+      }
+    };
+
+    fetchMagazines();
+  }, []);
+
   return (
     <section>
       <ul>
-        {listItems.map((item, itemIndex) => (
+        {magazines.map((magazine, itemIndex) => (
           <ListItem
             key={`item${itemIndex}`}
-            itemName={item}
+            magazineTitle={magazine.name}
+            magazineNumberOfTurns={magazine.numberOfTurns}
           />
         ))}
       </ul>
