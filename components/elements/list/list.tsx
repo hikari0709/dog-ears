@@ -26,7 +26,7 @@ const List = () => {
   }, []);
 
   return (
-    <section>
+    <section className="mb-8">
       <ul>
         {magazines.map((magazine, itemIndex) => (
           <ListItem
