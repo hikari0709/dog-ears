@@ -36,7 +36,7 @@ const ListItem = ({ key, magazineTitle, magazineNumberOfTurns }: Props) => {
       className="grid grid-cols-8 place-items-center border-b border-gray-300 mb-2 cursor-pointer"
     >
       <p className="col-span-5 p-2">{magazineTitle}</p>
-      <p className=" p-2">{count}</p>
+      <p className="p-2">{count}</p>
       <button
         onClick={decrement}
         className="w-full h-full col-span-1 bg-red-200 cursor-pointer p-2"
