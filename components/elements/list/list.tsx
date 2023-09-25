@@ -1,30 +1,16 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import ListItem from './listItem';
 
-type Magazine = {
-  name: string;
-  numberOfTurns: number;
+type Props = {
+  magazines: [
+    {
+      name: string;
+      numberOfTurns: number;
+    }
+  ];
 };
 
-const List = () => {
-  const [magazines, setMagazines] = useState<Magazine[]>([]);
-
-  useEffect(() => {
-    const fetchMagazines = async () => {
-      try {
-        const response = await fetch('/data/magazines.json');
-        const data = await response.json();
-        setMagazines(data);
-      } catch (error) {
-        console.error('JSONデータの読み込みエラー', error);
-      }
-    };
-
-    fetchMagazines();
-  }, []);
-
+const List = ({ magazines }: Props) => {
   return (
     <section className="mb-8">
       <ul>
