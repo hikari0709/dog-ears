@@ -1,16 +1,16 @@
 import React from 'react';
 import ListItem from './listItem';
 
-type Props = {
-  magazines: [
-    {
-      name: string;
-      numberOfTurns: number;
-    }
-  ];
+type Magazine = {
+  name: string;
+  numberOfTurns: number;
 };
 
-const List = ({ magazines }: Props) => {
+type ListProps = {
+  magazines: Magazine[];
+};
+
+const List = ({ magazines }: ListProps) => {
   console.log(magazines);
   return (
     <section className="mb-8">
