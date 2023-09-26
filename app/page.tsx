@@ -15,21 +15,6 @@ export default function Home() {
   const [magazinesData, setMagazinesData] = useState<Magazine[]>([]);
 
   useEffect(() => {
-    openDB()
-      .then((db) => {
-        db.transaction(['magazines'], 'readwrite')
-          .objectStore('magazines')
-          .add({
-            name: '黄泉のツガイ',
-            numberOfTurns: 0,
-          });
-      })
-      .catch((error) => {
-        console.error('IndexedDBのオープンに失敗しました: ', error);
-      });
-  }, []);
-
-  useEffect(() => {
     const fetchDataFromIndexedDB = async () => {
       try {
         const db = await openDB();
@@ -53,8 +38,7 @@ export default function Home() {
 
   return (
     <main className="px-2 py-24 max-w-screen-sm m-auto">
-      {}
-      <List />
+      {magazinesData.length > 0 && <List magazines={magazinesData} />}
       <AddButton />
     </main>
   );

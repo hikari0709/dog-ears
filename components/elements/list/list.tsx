@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ListItem from './listItem';
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
 };
 
 const List = ({ magazines }: Props) => {
+  console.log(magazines);
   return (
     <section className="mb-8">
       <ul>

@@ -10,7 +10,9 @@ export function openDB() {
 
       request.onupgradeneeded = (event) => {
         const db = (event.target as IDBRequest).result as IDBDatabase;
-        resolve(db);
+        if (!db.objectStoreNames.contains('magazines')) {
+          db.createObjectStore('magazines', { keyPath: 'id' });
+        }
       };
 
       request.onsuccess = (event) => {
