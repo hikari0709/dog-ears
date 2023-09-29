@@ -4,7 +4,7 @@ import List from '@/components/elements/list';
 import AddButton from '@/components/elements/addButton';
 
 import { useEffect, useState } from 'react';
-import { openDB } from '../utils/indexedDB';
+import { openDB } from '@/utils/indexedDB';
 
 type Magazine = {
   name: string;
