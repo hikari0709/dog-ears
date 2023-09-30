@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from './listItem';
 
 type Magazine = {
-  name: string;
+  title: string;
   numberOfTurns: number;
 };
 
@@ -18,7 +18,7 @@ const List = ({ magazines }: ListProps) => {
         {magazines.map((magazine, itemIndex) => (
           <ListItem
             key={`item${itemIndex}`}
-            magazineTitle={magazine.name}
+            magazineTitle={magazine.title}
             magazineNumberOfTurns={magazine.numberOfTurns}
           />
         ))}

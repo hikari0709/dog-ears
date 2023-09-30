@@ -4,7 +4,8 @@ import React, { useState, ChangeEvent } from 'react';
 import { openDB } from '@/utils/indexedDB';
 
 type Argument = {
-  inputTitle: string;
+  id: number;
+  title: string;
   numberOfTurns: number;
 };
 
@@ -18,15 +19,23 @@ const AddButton = () => {
       const transaction = db.transaction(['magazines'], 'readwrite');
       const objectStore = transaction.objectStore('magazines');
 
-      const addData = {
-        name: inputTitle,
-        numberOfTurns: inputNumberOfTurns,
-      };
+      const countRequest = objectStore.count();
+      countRequest.onsuccess = () => {
+        console.log('データベース内のデータ数:', countRequest.result);
 
-      const request = objectStore.add(addData);
+        const id = countRequest.result + 1;
 
-      request.onsuccess = (event) => {
-        console.log('登録完了');
+        const addData: Argument = {
+          id: id,
+          title: inputTitle,
+          numberOfTurns: Number(inputNumberOfTurns),
+        };
+
+        const request = objectStore.add(addData);
+
+        request.onsuccess = () => {
+          console.log('データの追加が成功しました');
+        };
       };
     } catch (error) {
       console.error('データの追加中にエラーが発生しました:', error);
@@ -38,7 +47,8 @@ const AddButton = () => {
   };
 
   const handleInputChangeNumberOfTurns = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputNumberOfTurns(e.target.value);
+    const value = e.target.value;
+    setInputNumberOfTurns(value);
   };
 
   return (

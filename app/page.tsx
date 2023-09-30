@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { openDB } from '@/utils/indexedDB';
 
 type Magazine = {
-  name: string;
+  title: string;
   numberOfTurns: number;
 };
 
@@ -18,7 +18,7 @@ export default function Home() {
     const fetchDataFromIndexedDB = async () => {
       try {
         const db = await openDB();
-        const transaction = db.transaction(['magazines'], 'readonly');
+        const transaction = db.transaction(['magazines'], 'readwrite');
         const objectStore = transaction.objectStore('magazines');
         const request = objectStore.getAll();
 
