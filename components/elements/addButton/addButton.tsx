@@ -65,12 +65,12 @@ const AddButton = () => {
         />
         <input
           type="number"
-          placeholder="読み終えた巻数を入力してください"
-          className="border border-gray-300 p-2 col-span-3 w-full"
+          placeholder="巻数を入力してください"
+          className="border border-gray-300 p-2 w-full"
           onChange={handleInputChangeNumberOfTurns}
         />
         <button
-          className="p-2 bg-blue-500 rounded cursor-pointer text-white col-span-2 w-full"
+          className="p-2 bg-blue-500 rounded cursor-pointer text-white col-span-4 w-full"
           onClick={addMagazineData}
         >
           マンガを追加する

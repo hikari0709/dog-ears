@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 type Props = {
-  key: string;
   magazineTitle: string;
   magazineNumberOfTurns: number;
 };
@@ -19,7 +18,7 @@ type Props = {
  * listにitemを追加する時は画面右下とかから「追加」のボタンを押してテキストと読んだ巻数を入力して登録するとリストに追加される
  */
 
-const ListItem = ({ key, magazineTitle, magazineNumberOfTurns }: Props) => {
+const ListItem = ({ magazineTitle, magazineNumberOfTurns }: Props) => {
   const [count, setCount] = useState(magazineNumberOfTurns);
 
   const increment = () => {
@@ -31,10 +30,7 @@ const ListItem = ({ key, magazineTitle, magazineNumberOfTurns }: Props) => {
   };
 
   return (
-    <li
-      key={key}
-      className="grid grid-cols-8 place-items-center border-b border-gray-300 mb-2 cursor-pointer"
-    >
+    <li className="grid grid-cols-8 place-items-center border-b border-gray-300 mb-2 cursor-pointer">
       <p className="col-span-5 p-2">{magazineTitle}</p>
       <p className="p-2">{count}</p>
       <button
