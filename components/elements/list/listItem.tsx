@@ -27,16 +27,16 @@ type Argument = {
 
 const ListItem = ({ id, magazineTitle, magazineNumberOfTurns }: Props) => {
   const [count, setCount] = useState(magazineNumberOfTurns);
-  const updateMagazineData = async () => {
+  const updateMagazineData = async (newCount: number) => {
     try {
       const db = await openDB();
       const transaction = db.transaction(['magazines'], 'readwrite');
       const objectStore = transaction.objectStore('magazines');
-      console.log(id, magazineTitle, count);
+      console.log(id, magazineTitle, newCount);
       const updateData: Argument = {
         id: id,
         title: magazineTitle,
-        numberOfTurns: Number(count),
+        numberOfTurns: Number(newCount),
       };
 
       const request = objectStore.put(updateData);
@@ -50,13 +50,17 @@ const ListItem = ({ id, magazineTitle, magazineNumberOfTurns }: Props) => {
   };
 
   const increment = () => {
-    setCount(count + 1);
-    updateMagazineData();
+    const newCount = count + 1;
+    setCount(newCount);
+    updateMagazineData(newCount);
   };
 
   const decrement = () => {
-    count > 0 && setCount(count - 1);
-    updateMagazineData();
+    const newCount = count - 1;
+    if (count > 0) {
+      setCount(newCount);
+      updateMagazineData(newCount);
+    }
   };
 
   return (
