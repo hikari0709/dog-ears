@@ -9,6 +9,7 @@ type Props = {
 
 type Argument = {
   id: number;
+  title: string;
   numberOfTurns: number;
 };
 
@@ -26,17 +27,15 @@ type Argument = {
 
 const ListItem = ({ id, magazineTitle, magazineNumberOfTurns }: Props) => {
   const [count, setCount] = useState(magazineNumberOfTurns);
-  const updateMagazineData = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const updateMagazineData = async () => {
     try {
       const db = await openDB();
       const transaction = db.transaction(['magazines'], 'readwrite');
       const objectStore = transaction.objectStore('magazines');
-      const targetId = Number(event.currentTarget.getAttribute('data-id'));
-
+      console.log(id, magazineTitle, count);
       const updateData: Argument = {
-        id: targetId,
+        id: id,
+        title: magazineTitle,
         numberOfTurns: Number(count),
       };
 
@@ -52,10 +51,12 @@ const ListItem = ({ id, magazineTitle, magazineNumberOfTurns }: Props) => {
 
   const increment = () => {
     setCount(count + 1);
+    updateMagazineData();
   };
 
   const decrement = () => {
     count > 0 && setCount(count - 1);
+    updateMagazineData();
   };
 
   return (
