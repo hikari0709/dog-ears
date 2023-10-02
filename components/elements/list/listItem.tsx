@@ -22,6 +22,9 @@ type Argument = {
  * 追加ボタンは右下に設置して、「直接入力」と「バーコード読み取り」が選べるようにしておく、バーコードの読みよりがエラーになった場合直接入力に誘導するような動線をつける
  * 直接入力補助のために、これまで登録されたものがサジェストとして出るような仕組みもあるといい
  * listにitemを追加する時は画面右下とかから「追加」のボタンを押してテキストと読んだ巻数を入力して登録するとリストに追加される
+ * 誤って「マンガを追加する」を押してしまった場合、マンガのタイトルが空のままで登録されてしまう
+ * 現在は誤ってマンガのタイトルを登録してしまった場合、編集も削除もできない
+ * マンガタイトルが真ん中揃えなのが気に入らない
  */
 
 const ListItem = ({ id, magazineTitle, magazineNumberOfTurns }: Props) => {
@@ -63,10 +66,7 @@ const ListItem = ({ id, magazineTitle, magazineNumberOfTurns }: Props) => {
   };
 
   return (
-    <li
-      data-id={id}
-      className="grid grid-cols-8 place-items-center border-b border-gray-300 mb-2 cursor-pointer"
-    >
+    <li className="grid grid-cols-8 place-items-center border-b border-gray-300 mb-2 cursor-pointer">
       <p className="col-span-5 p-2">{magazineTitle}</p>
       <p className="p-2">{count}</p>
       <button

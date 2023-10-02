@@ -62,12 +62,14 @@ const AddButton = () => {
           placeholder="タイトルを入力してください"
           className="border border-gray-300 p-2 col-span-3 w-full"
           onChange={handleInputChangeTitle}
+          required
         />
         <input
           type="number"
           placeholder="巻数を入力してください"
           className="border border-gray-300 p-2 w-full"
           onChange={handleInputChangeNumberOfTurns}
+          required
         />
         <button
           className="p-2 bg-blue-500 rounded cursor-pointer text-white col-span-4 w-full"
