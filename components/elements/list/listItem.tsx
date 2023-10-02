@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { openDB } from '@/utils/indexedDB';
 
 type Props = {
@@ -22,44 +22,43 @@ type Argument = {
  * 追加ボタンは右下に設置して、「直接入力」と「バーコード読み取り」が選べるようにしておく、バーコードの読みよりがエラーになった場合直接入力に誘導するような動線をつける
  * 直接入力補助のために、これまで登録されたものがサジェストとして出るような仕組みもあるといい
  * listにitemを追加する時は画面右下とかから「追加」のボタンを押してテキストと読んだ巻数を入力して登録するとリストに追加される
- * incrementとdecrementの処理をIndexedDBのアップデート処理と一緒に行う必要がある
  */
 
 const ListItem = ({ id, magazineTitle, magazineNumberOfTurns }: Props) => {
   const [count, setCount] = useState(magazineNumberOfTurns);
-  const updateMagazineData = async (newCount: number) => {
-    try {
-      const db = await openDB();
-      const transaction = db.transaction(['magazines'], 'readwrite');
-      const objectStore = transaction.objectStore('magazines');
-      console.log(id, magazineTitle, newCount);
-      const updateData: Argument = {
-        id: id,
-        title: magazineTitle,
-        numberOfTurns: Number(newCount),
-      };
 
-      const request = objectStore.put(updateData);
+  useEffect(() => {
+    const updateMagazineData = async () => {
+      try {
+        const db = await openDB();
+        const transaction = db.transaction(['magazines'], 'readwrite');
+        const objectStore = transaction.objectStore('magazines');
+        const updateData: Argument = {
+          id: id,
+          title: magazineTitle,
+          numberOfTurns: count,
+        };
 
-      request.onsuccess = () => {
-        console.log('データの追加が成功しました');
-      };
-    } catch (error) {
-      console.error('データの追加中にエラーが発生しました:', error);
-    }
-  };
+        const request = objectStore.put(updateData);
+
+        request.onsuccess = () => {
+          console.log('データの追加が成功しました');
+        };
+      } catch (error) {
+        console.error('データの追加中にエラーが発生しました:', error);
+      }
+    };
+
+    updateMagazineData();
+  }, [count]);
 
   const increment = () => {
-    const newCount = count + 1;
-    setCount(newCount);
-    updateMagazineData(newCount);
+    setCount((prevCount) => prevCount + 1);
   };
 
   const decrement = () => {
-    const newCount = count - 1;
     if (count > 0) {
-      setCount(newCount);
-      updateMagazineData(newCount);
+      setCount((prevCount) => prevCount - 1);
     }
   };
 
