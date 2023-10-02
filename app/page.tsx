@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { openDB } from '@/utils/indexedDB';
 
 type Magazine = {
+  id: number;
   title: string;
   numberOfTurns: number;
 };

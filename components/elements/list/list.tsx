@@ -2,6 +2,7 @@ import React from 'react';
 import ListItem from './listItem';
 
 type Magazine = {
+  id: number;
   title: string;
   numberOfTurns: number;
 };
@@ -15,9 +16,10 @@ const List = ({ magazines }: ListProps) => {
   return (
     <section className="mb-8">
       <ul>
-        {magazines.map((magazine, itemIndex) => (
+        {magazines.map((magazine) => (
           <ListItem
-            key={`item${itemIndex}`}
+            key={magazine.id}
+            id={magazine.id}
             magazineTitle={magazine.title}
             magazineNumberOfTurns={magazine.numberOfTurns}
           />
