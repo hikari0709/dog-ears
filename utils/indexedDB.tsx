@@ -13,6 +13,10 @@ export function openDB() {
         if (!db.objectStoreNames.contains('magazines')) {
           db.createObjectStore('magazines', { keyPath: 'id' });
         }
+
+        if (!db.objectStoreNames.contains('library')) {
+          db.createObjectStore('library', { keyPath: 'id' });
+        }
       };
 
       request.onsuccess = (event) => {

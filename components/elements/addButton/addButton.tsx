@@ -21,8 +21,6 @@ const AddButton = () => {
 
       const countRequest = objectStore.count();
       countRequest.onsuccess = () => {
-        console.log('データベース内のデータ数:', countRequest.result);
-
         const id = countRequest.result + 1;
 
         const addData: Argument = {

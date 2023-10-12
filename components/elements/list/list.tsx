@@ -12,7 +12,6 @@ type ListProps = {
 };
 
 const List = ({ magazines }: ListProps) => {
-  console.log(magazines);
   return (
     <section className="mb-8">
       <ul>
